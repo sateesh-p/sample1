@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function() {
+    $(".preferenceSelect").change(function() {
+        // Get the selected value
+        var selected = $("option:selected", $(this)).val();
+        // Get the ID of this element
+        var thisID = $(this).prop("id");
+        // Reset so all values are showing:
+        $(".preferenceSelect option").each(function() {
+            $(this).prop("disabled", false);
+        });
+        $(".preferenceSelect").each(function() {
+            if ($(this).prop("id") != thisID) {
+                $("option[value='" + selected + "']", $(this)).prop("disabled", true);
+            }
+        });
+
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $("#b1").click(function(){
+	var name=$('#name').val();
+	var id=$('#idn').val();
+	var elec1=$('#pref1select').val();
+	var elec2=$('#pref2select').val();
+    $.ajax({
+    type: "POST",
+    url: 'phppost.php',
+    data: {name:name,id:id,course1:elec1,course2:elec2},
+    success: function(data){
+        alert(data);
+	}
+    });
+});
+});
+</script>
+
+<table align="center">
+<tr><td>Name:</td><td><input type="textbox" id="name"></td></tr><br>
+<tr><td>Id.no:</td><td><input type="textbox" id="idn"></td></tr><br>
+
+
+<tr><th>Select open Elective 1:</th><td><select id="pref1select" class="preferenceSelect">
+  <option value="None">None</option>
+  <option value="15CS2001">15CS2001</option>
+  <option value="15CS2002">15CS2002</option>
+  <option value="15C2003">15CS2003</option>
+  <option value="15CS2004">15CS2004</option>
+</select></td></tr>
+<br>
+
+<tr><th>Select open Elective 2:</th><td><select id="pref2select" class="preferenceSelect">
+  <option value="None">None</option>
+  <option value="15CS2001">15CS2001</option>
+  <option value="15CS2002">15CS2002</option>
+  <option value="15C2003">15CS2003</option>
+  <option value="15CS2004">15CS2004</option>
+</select></td></tr>
+<tr align="center" ><td><button type="submit" id="b1">Submit</button></td></tr>
+
+</table>
+<script>
+</body>
+</html>
